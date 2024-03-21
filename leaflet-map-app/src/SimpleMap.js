@@ -29,7 +29,6 @@ const SimpleMap = () => {
           />
           <Polygon pathOptions={{ color: 'purple' }} positions={polygon}>
             <Popup>
-              //The information that you want to show when the polygon is clicked
               I am a popup! You clicked the polygon.
             </Popup>
           </Polygon>
