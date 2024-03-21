@@ -1,6 +1,6 @@
-import React from 'react';
-import SimpleMap from './SimpleMap';
-import { useState } from 'react';
+import React from "react";
+import SimpleMap from "./SimpleMap";
+import { useState } from "react";
 import axios from "axios";
 import {
   MenuFoldOutlined,
@@ -12,26 +12,28 @@ import MenuList from './components/MenuList'
 
 const { Header, Sider } = Layout;
 function App() {
-   // new line start
-   const [profileData, setProfileData] = useState(null);
-   const [collapsed, setCollapsed] = useState(false);
+ const [profileData, setProfileData] = useState(null);
+ const [collapsed, setCollapsed] = useState(false);
 
-   function getHumidityDailyAvg() {
-     axios({
-       method: "GET",
-       url:"/forecast/humidityDailyAvg",
-     })
-     .then((response) => {
-       const res =response.data
-       setProfileData(({
-         humidity: res.humidity}))
-     }).catch((error) => {
-       if (error.response) {
-         console.log(error.response)
-         console.log(error.response.status)
-         console.log(error.response.headers)
-         }
-     })}
+  function getHumidityDailyAvg() {
+    axios({
+      method: "GET",
+      url: "/forecast/humidityDailyAvg",
+    })
+      .then((response) => {
+        const res = response.data;
+        setProfileData({
+          humidity: res.humidity,
+        });
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
 
   return (
     <Layout>
