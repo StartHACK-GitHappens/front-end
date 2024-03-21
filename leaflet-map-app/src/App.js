@@ -3,10 +3,33 @@ import SimpleMap from "./SimpleMap";
 import { useState } from "react";
 import axios from "axios";
 import L from "leaflet";
+import {
+  AppstoreOutlined,
+  ContainerOutlined,
+  DesktopOutlined,
+  MailOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  PieChartOutlined,
+} from '@ant-design/icons';
+import { Button, Layout, theme } from 'antd';
+import Logo from './components/Logo'
+import MenuList from './components/MenuList'
 
+function getItem(label, key, icon, children, type) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+    type,
+  };
+}
+
+const { Header, Sider } = Layout;
 function App() {
-  // new line start
-  const [profileData, setProfileData] = useState(null);
+ const [profileData, setProfileData] = useState(null);
+ const [collapsed, setCollapsed] = useState(false);
 
   function getHumidityDailyAvg() {
     axios({
@@ -28,16 +51,34 @@ function App() {
       });
   }
 
+  const {
+     token: { colorBgContainer },
+  } = theme.useToken();
+
   return (
-    <div>
-      <h1>Harvest</h1>
-      <SimpleMap />
-      {/* <p>To get your profile details: </p><button onClick={getHumidityDailyAvg}>Click me</button>
-        {profileData && <div>
-              <p>Profile name: {profileData.humidity}</p>
-            </div>
-        } */}
-    </div>
+    <Layout>
+      <Sider
+        collapsed={collapsed}
+        collapsible
+        trigger={null}
+        className='sidebar'
+      >
+        <Logo />
+        <MenuList />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type='text'
+            className='toggle'
+            onClick={() => setCollapsed(!collapsed)}
+            icon={collapsed ?
+            <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          />
+        </Header>
+      </Layout>
+      <SimpleMap className="simple-map" />
+    </Layout>
   );
 }
 export default App;
