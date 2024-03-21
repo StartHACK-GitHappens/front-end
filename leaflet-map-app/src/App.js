@@ -2,6 +2,7 @@ import React from 'react';
 import SimpleMap from './SimpleMap';
 import { useState } from 'react';
 import axios from "axios";
+import L from "leaflet";
 
 function App() {
    // new line start
@@ -27,12 +28,12 @@ function App() {
   return (
     <div>
       <h1>My Leaflet.js and React Map</h1>
-      {/* <SimpleMap /> */}
-      <p>To get your profile details: </p><button onClick={getHumidityDailyAvg}>Click me</button>
+      <SimpleMap />
+      {/* <p>To get your profile details: </p><button onClick={getHumidityDailyAvg}>Click me</button>
         {profileData && <div>
               <p>Profile name: {profileData.humidity}</p>
             </div>
-        }
+        } */}
     </div>
   );
 }
