@@ -16,16 +16,13 @@ code {
   color: #fff; 
 }
 
-.simple-map {
-  z-index: 0;
-}
-
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  padding: 10px;
+  /* padding: 10px; */
+  /* padding-bottom: 0px; */
 }
 
 .logo-icon {
