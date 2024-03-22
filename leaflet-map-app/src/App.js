@@ -2,18 +2,15 @@ import React from "react";
 import SimpleMap from "./SimpleMap";
 import { useState } from "react";
 import axios from "axios";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from '@ant-design/icons';
-import { Button, Layout } from 'antd';
-import Logo from './components/Logo'
-import MenuList from './components/MenuList'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Button, Layout } from "antd";
+import Logo from "./components/Logo";
+import MenuList from "./components/MenuList";
 
 const { Header, Sider } = Layout;
 function App() {
- const [profileData, setProfileData] = useState(null);
- const [collapsed, setCollapsed] = useState(false);
+  const [profileData, setProfileData] = useState(null);
+  const [collapsed, setCollapsed] = useState(false);
 
   function getHumidityDailyAvg() {
     axios({
@@ -42,22 +39,27 @@ function App() {
         collapsed={collapsed}
         collapsible
         trigger={null}
-        className='sidebar'
+        className="sidebar"
       >
         {/* <Logo /> */}
         <MenuList />
       </Sider>
-      
+
       <Layout>
         <Header style={{ padding: 0, color: "white", backgroundColor: "#114D0D" }}>
           <Button
-            type='text'
-            className='toggle'
+            type="text"
+            className="toggle"
             onClick={() => setCollapsed(!collapsed)}
-            icon={collapsed ?
-            <MenuUnfoldOutlined style={{ color: '#fff' }} /> : <MenuFoldOutlined style={{ color: '#fff' }} />}
+            icon={
+              collapsed ? (
+                <MenuUnfoldOutlined style={{ color: "#fff" }} />
+              ) : (
+                <MenuFoldOutlined style={{ color: "#fff" }} />
+              )
+            }
           />
-          <span style={{marginLeft: "20px", fontSize: "20px"}}>HARVEST</span>
+          <span style={{ marginLeft: "20px", fontSize: "20px" }}>HARVEST</span>
         </Header>
         <SimpleMap className="simple-map" />
       </Layout>

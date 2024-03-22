@@ -13,7 +13,7 @@ const CropSelectionMenu = () => {
       style={{
         position: "absolute",
         top: "100px",
-        left: "50px",
+        left: "250px",
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.8)", // 80% transparent background
         padding: "10px",
