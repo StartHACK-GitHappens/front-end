@@ -11,8 +11,8 @@ import OverlayMenu from "./components/OverlayMenu"; // Import the OverlayMenu co
 import CropSelectionMenu from "./components/CropSelectionMenu"; // Import the CropSelectionMenu component
 import { Icon } from "leaflet";
 import { fieldsData } from "./fields";
-import "leaflet/dist/leaflet.css"
-import "leaflet-draw/dist/leaflet.draw.css" 
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
 import DiseaseMenu from "./components/DiseaseMenu";
 
 // Function to create an ImageOverlay component
@@ -80,77 +80,93 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
   const imageSizeKm = 2.24;
 
   return (
-      <MapContainer
-        center={[centerLatitude, centerLongitude]}
-        zoom={14}
-        ref={mapRef}
-        style={{ height: "100%", width: "100%" }}
-      >
-        <TileLayer
-          attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        />
-        {
-          fieldsData.features.map((field) => {
-            const coordinates = field.geometry.coordinates.map((item) => [item[0], item[1]]);
-            console.log(coordinates);
+    <MapContainer
+      center={[centerLatitude, centerLongitude]}
+      zoom={14}
+      ref={mapRef}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer
+        attribution="Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+      />
+      {fieldsData.features.map((field) => {
+        const coordinates = field.geometry.coordinates.map((item) => [
+          item[0],
+          item[1],
+        ]);
+        console.log(coordinates);
 
-            return (<Polygon
-                pathOptions={{
-                  fillColor: field.color,
-                  fillOpacity: 0.7,
-                  weight: 2,
-                  opacity: 1
-                  // color: 'white'
-                }}
-                positions={coordinates}
-              />)
-          })
-        }
+        return (
+          <Polygon
+            pathOptions={{
+              fillColor: field.color,
+              fillOpacity: 0.7,
+              weight: 2,
+              opacity: 1,
+              // color: 'white'
+            }}
+            positions={coordinates}
+          />
+        );
+      })}
 
-      {selectedCrop === "" && selectedOption === "" && createImageOverlay(
+      {selectedCrop === "" &&
+        selectedOption === "" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "truth.png"
         )}
 
-        {selectedCrop === "" && selectedOption === "NDVI" && createImageOverlay(
+      {selectedCrop === "" &&
+        selectedOption === "NDVI" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "ndvi_colored__1_-removebg-preview.png"
         )}
 
-        {selectedCrop === "" && selectedOption === "Yield" && createImageOverlay(
+      {selectedCrop === "" &&
+        selectedOption === "Yield" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "yield__3_-removebg-preview.png"
         )}
 
-        {selectedCrop === "🌽|Maize" && selectedOption === "" && createImageOverlay(
+      {selectedCrop === "🌽|Maize" &&
+        selectedOption === "" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "maize-removebg-preview.png"
         )}
 
-        {selectedCrop === "🌽|Maize" && selectedOption === "NDVI" && createImageOverlay(
+      {selectedCrop === "🌽|Maize" &&
+        selectedOption === "NDVI" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "ndvi_maize_colored__1_-removebg-preview.png"
         )}
 
-        {selectedCrop === "🌽|Maize" && selectedOption === "Yield" && createImageOverlay(
+      {selectedCrop === "🌽|Maize" &&
+        selectedOption === "Yield" &&
+        createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "yield_maize__3_-removebg-preview.png"
         )}
 
-        {hideFilters === "false" && <div
+      {hideFilters === "false" && (
+        <div
           style={{
             position: "absolute",
             top: "100px",
@@ -166,7 +182,9 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
           <p style={{ margin: "0 0 10px", fontSize: "1.5em" }}>Map Tools</p>
           <div style={dropdownContainerStyle}>
             <OverlayMenu handleOptionChange={handleOptionChange} />
-            {selectedOption === "Disease Risk" && (<DiseaseMenu handleDiseaseChange={handleDiseaseChange} />)}
+            {selectedOption === "Disease Risk" && (
+              <DiseaseMenu handleDiseaseChange={handleDiseaseChange} />
+            )}
           </div>
 
           {(selectedOption !== "Disease Risk" || selectedDisease) && (
@@ -184,7 +202,10 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
                 style={{
                   height: "20px",
                   flex: "1",
-                  background: "linear-gradient(to right, #0000ff, #ff0000)",
+                  background:
+                    selectedOption === "Yield"
+                      ? "linear-gradient(to right, #d2b48c, #8b4513)" // Light to dark brown for Yield
+                      : "linear-gradient(to right, #00008B, #CCFF00)", // Dark blue to neon yellow for other options
                 }}
               />
               <span style={{ marginLeft: "5px" }}>1</span>{" "}
@@ -192,10 +213,11 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
             </div>
           )}
         </div>
-        }
-        {hideFilters === "false" && <CropSelectionMenu handleCropChange={handleCropChange} />}
-  
-      </MapContainer>
+      )}
+      {hideFilters === "false" && (
+        <CropSelectionMenu handleCropChange={handleCropChange} />
+      )}
+    </MapContainer>
   );
 };
 
