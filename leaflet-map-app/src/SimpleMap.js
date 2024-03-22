@@ -13,6 +13,7 @@ import { Icon } from "leaflet";
 import { fieldsData } from "./fields";
 import "leaflet/dist/leaflet.css"
 import "leaflet-draw/dist/leaflet.draw.css" 
+import DiseaseMenu from "./components/DiseaseMenu";
 
 // Function to create an ImageOverlay component
 function createImageOverlay(centerLat, centerLng, imageSizeKm, imagePath) {
@@ -36,6 +37,22 @@ function createImageOverlay(centerLat, centerLng, imageSizeKm, imagePath) {
   return <ImageOverlay url={imagePath} bounds={imageBounds} />;
 }
 
+// Style for the container of dropdowns
+const dropdownContainerStyle = {
+  backgroundColor: "white",
+  padding: "10px",
+  borderRadius: "10px",
+  boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+};
+
+// Style for individual elements like the color bar and its container
+const elementStyle = {
+  marginTop: "10px",
+  borderRadius: "10px",
+  boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+  padding: "0 10px", // Padding added for the color bar container
+};
+
 const SimpleMap = ({ centerLatitude, centerLongitude }) => {
   const mapRef = useRef(null);
 
@@ -45,11 +62,23 @@ const SimpleMap = ({ centerLatitude, centerLongitude }) => {
     setSelectedCrop(e.target.value);
   };
 
+  // OverlayMenu
+  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedDisease, setSelectedDisease] = useState("");
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+    setSelectedDisease("");
+  };
+  const handleDiseaseChange = (e) => {
+    setSelectedDisease(e.target.value);
+  };
+
   // Central coordinates of the image
   const imageCenterLat = -28.4275752;
   const imageCenterLng = 21.6859793;
   // Size of the image in kilometers
   const imageSizeKm = 2.24;
+
   return (
       <MapContainer
         center={[centerLatitude, centerLongitude]}
@@ -78,15 +107,91 @@ const SimpleMap = ({ centerLatitude, centerLongitude }) => {
               />)
           })
         }
-        {/* Use the createImageOverlay function to add the custom image */}
-        {selectedCrop === "🌽|Maize" && createImageOverlay(
+
+      {selectedCrop === "" && selectedOption === "" && createImageOverlay(
+          imageCenterLat,
+          imageCenterLng,
+          imageSizeKm,
+          "truth.png"
+        )}
+
+        {selectedCrop === "" && selectedOption === "NDVI" && createImageOverlay(
+          imageCenterLat,
+          imageCenterLng,
+          imageSizeKm,
+          "ndvi_colored__1_-removebg-preview.png"
+        )}
+
+        {selectedCrop === "" && selectedOption === "Yield" && createImageOverlay(
+          imageCenterLat,
+          imageCenterLng,
+          imageSizeKm,
+          "yield__3_-removebg-preview.png"
+        )}
+
+        {selectedCrop === "🌽|Maize" && selectedOption === "" && createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
           "maize-removebg-preview.png"
         )}
-        <OverlayMenu />
-        
+
+        {selectedCrop === "🌽|Maize" && selectedOption === "NDVI" && createImageOverlay(
+          imageCenterLat,
+          imageCenterLng,
+          imageSizeKm,
+          "ndvi_maize_colored__1_-removebg-preview.png"
+        )}
+
+        {selectedCrop === "🌽|Maize" && selectedOption === "Yield" && createImageOverlay(
+          imageCenterLat,
+          imageCenterLng,
+          imageSizeKm,
+          "yield_maize__3_-removebg-preview.png"
+        )}
+
+        <div
+          style={{
+            position: "absolute",
+            top: "100px",
+            right: "15px",
+            zIndex: 1000,
+            backgroundColor: "rgba(255, 255, 255, 0.8)", // 80% transparent background
+            padding: "10px",
+            border: "1px solid #999",
+            borderRadius: "5px",
+            width: "250px", // Set a specific width for the entire menu
+          }}
+        >
+          <p style={{ margin: "0 0 10px", fontSize: "1.5em" }}>Map Tools</p>
+          <div style={dropdownContainerStyle}>
+            <OverlayMenu handleOptionChange={handleOptionChange} />
+            {selectedOption === "Disease Risk" && (<DiseaseMenu handleDiseaseChange={handleDiseaseChange} />)}
+          </div>
+
+          {(selectedOption !== "Disease Risk" || selectedDisease) && (
+            <div
+              style={{
+                ...elementStyle,
+                marginTop: "10px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ marginRight: "5px" }}>0</span>{" "}
+              {/* Number at the start of the color bar */}
+              <div
+                style={{
+                  height: "20px",
+                  flex: "1",
+                  background: "linear-gradient(to right, #0000ff, #ff0000)",
+                }}
+              />
+              <span style={{ marginLeft: "5px" }}>1</span>{" "}
+              {/* Number at the end of the color bar */}
+            </div>
+          )}
+        </div>
         <CropSelectionMenu handleCropChange={handleCropChange} />
       </MapContainer>
   );

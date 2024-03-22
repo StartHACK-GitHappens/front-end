@@ -18,7 +18,6 @@ const CropSelectionMenu = ({ handleCropChange }) => {
     >
       <div style={{ width: "100%" }}>
         <select
-          // value={selectedCrop}
           onChange={handleCropChange}
           style={{ width: "100%", fontSize: "1.5em" }}
         >
