@@ -9,10 +9,10 @@ const { Header, Sider } = Layout;
 
 function App() {
   const [collapsed, setCollapsed] = useState(true);
-  const [activePage, setActivePage] = useState('crop-classification'); 
-  
-  const handleSidebarClick = e => {
-    setActivePage(e.key); 
+  const [activePage, setActivePage] = useState("crop-classification");
+
+  const handleSidebarClick = (e) => {
+    setActivePage(e.key);
   };
 
   return (
@@ -84,7 +84,7 @@ function App() {
           <span
             style={{
               marginLeft: "20px",
-              fontSize: "20px",
+              fontSize: "40px",
               fontFamily: "Montserrat",
             }}
           >

@@ -6,14 +6,14 @@ const CropSelectionMenu = ({ handleCropChange }) => {
     <div
       style={{
         position: "absolute",
-        top: "100px",
-        left: "25px",
+        top: "40px",
+        right: "15px",
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.8)", // 80% transparent background
         padding: "10px",
         border: "1px solid #999",
         borderRadius: "5px",
-        width: "200px", // Set a specific width for the menu
+        width: "250px", // Set a specific width for the menu
       }}
     >
       <div style={{ width: "100%" }}>

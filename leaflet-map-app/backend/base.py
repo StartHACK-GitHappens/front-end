@@ -13,8 +13,8 @@ def get_humidity_daily_avg():
     headers = {
         'ApiKey': FORECAST_API_KEY,
     }
-    lat = 47
-    lng = 7
+    lat = -28.4275752
+    lng = 21.6859793
     startDate = "2024-03-20"
     endDate = "2024-03-21"
     response = requests.get(HUMIDITY_DAILY_AVG_URL.format(lat, lng, startDate, endDate), headers=headers)
