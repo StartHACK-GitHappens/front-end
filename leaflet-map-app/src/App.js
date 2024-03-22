@@ -67,8 +67,8 @@ function App() {
           />
           <span style={{ marginLeft: "20px", fontSize: "20px" }}>HARVEST</span>
         </Header>
-        {activePage === 'crop-classification' && <SimpleMap className="simple-map" centerLatitude="-28.4275752" centerLongitude="21.6859793" />}
-        {activePage === 'early-warning' && <SimpleMap className="simple-map" centerLatitude="47.47672096160886" centerLongitude="9.433863598100613" />}
+        {activePage === 'crop-classification' && <SimpleMap className="simple-map" centerLatitude="-28.4275752" centerLongitude="21.6859793" hideFilters="false" />}
+        {activePage === 'early-warning' && <SimpleMap className="simple-map" centerLatitude="47.47672096160886" centerLongitude="9.433863598100613" hideFilters="true" />}
       </Layout>
     </Layout>
   );

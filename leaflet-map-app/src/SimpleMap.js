@@ -53,7 +53,7 @@ const elementStyle = {
   padding: "0 10px", // Padding added for the color bar container
 };
 
-const SimpleMap = ({ centerLatitude, centerLongitude }) => {
+const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
   const mapRef = useRef(null);
 
   // CropSelectionMenu
@@ -150,7 +150,7 @@ const SimpleMap = ({ centerLatitude, centerLongitude }) => {
           "yield_maize__3_-removebg-preview.png"
         )}
 
-        <div
+        {hideFilters === "false" && <div
           style={{
             position: "absolute",
             top: "100px",
@@ -192,7 +192,9 @@ const SimpleMap = ({ centerLatitude, centerLongitude }) => {
             </div>
           )}
         </div>
-        <CropSelectionMenu handleCropChange={handleCropChange} />
+        }
+        {hideFilters === "false" && <CropSelectionMenu handleCropChange={handleCropChange} />}
+  
       </MapContainer>
   );
 };
