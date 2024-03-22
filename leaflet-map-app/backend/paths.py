@@ -15,3 +15,5 @@ CEREAL_RISK_URL = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/Cerea
 TURF_RISK_URL = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/TurfRisk?latitude={}&longitude={}&startDate={}&endDate={}&modelId={}&datasetLabel=NEMSAUTO"
 
 APPLE_RISK_URL = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/AppleRisk?latitude={}&longitude={}&startDate={}&endDate={}&modelId={}&datasetLabel=NEMSAUTO"
+
+CORN_RISK_URL = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/CornRisk?latitude={}&longitude={}&startDate={}&endDate={}&modelId={}&datasetLabel=NEMSAUTO"

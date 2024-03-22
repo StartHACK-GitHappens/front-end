@@ -14,6 +14,7 @@ import { fieldsData } from "./fields";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import DiseaseMenu from "./components/DiseaseMenu";
+import axios from "axios";
 
 // Function to create an ImageOverlay component
 function createImageOverlay(centerLat, centerLng, imageSizeKm, imagePath) {
@@ -65,12 +66,33 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
   // OverlayMenu
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedDisease, setSelectedDisease] = useState("");
+
+  // Disease risk prediction
+  const [predictedCornDisease, setCornDisease] = useState("");
+  function getDiseasePredCorn(diseaseName) {
+    axios({
+      method: "GET",
+      url: `/diseaseRisk/corn?modelName=${diseaseName}`,
+    })
+      .then((response) => {
+        const res = response.data;
+        setCornDisease(res.diseaseRisk);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        }
+      });
+  }
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value);
     setSelectedDisease("");
   };
   const handleDiseaseChange = (e) => {
     setSelectedDisease(e.target.value);
+    getDiseasePredCorn(e.target.value);
   };
 
   // Central coordinates of the image
@@ -95,7 +117,6 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
           item[0],
           item[1],
         ]);
-        console.log(coordinates);
 
         return (
           <Polygon
@@ -107,7 +128,9 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
               // color: 'white'
             }}
             positions={coordinates}
-          />
+          >
+            <Popup>{field.popUpText}</Popup>
+          </Polygon>
         );
       })}
 
@@ -185,9 +208,14 @@ const SimpleMap = ({ centerLatitude, centerLongitude, hideFilters }) => {
             {selectedOption === "Disease Risk" && (
               <DiseaseMenu handleDiseaseChange={handleDiseaseChange} />
             )}
+            {selectedOption === "Disease Risk" && (
+              <div style={{ fontSize: "1.5em" }}>
+                Average risk: {predictedCornDisease}
+              </div>
+            )}
           </div>
 
-          {(selectedOption !== "Disease Risk" || selectedDisease) && (
+          {(selectedOption === "NDVI" || selectedOption === "Yield") && (
             <div
               style={{
                 ...elementStyle,

@@ -1,7 +1,6 @@
 import React from "react";
 import SimpleMap from "./SimpleMap";
 import { useState } from "react";
-import axios from "axios";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Button, Layout } from "antd";
 import MenuList from "./components/MenuList";
@@ -9,33 +8,12 @@ import MenuList from "./components/MenuList";
 const { Header, Sider } = Layout;
 
 function App() {
-  const [profileData, setProfileData] = useState(null);
   const [collapsed, setCollapsed] = useState(true);
-  const [activePage, setActivePage] = useState("crop-classification");
-
-  const handleSidebarClick = (e) => {
-    setActivePage(e.key);
+  const [activePage, setActivePage] = useState('crop-classification'); 
+  
+  const handleSidebarClick = e => {
+    setActivePage(e.key); 
   };
-
-  function getHumidityDailyAvg() {
-    axios({
-      method: "GET",
-      url: "/forecast/humidityDailyAvg",
-    })
-      .then((response) => {
-        const res = response.data;
-        setProfileData({
-          humidity: res.humidity,
-        });
-      })
-      .catch((error) => {
-        if (error.response) {
-          console.log(error.response);
-          console.log(error.response.status);
-          console.log(error.response.headers);
-        }
-      });
-  }
 
   return (
     <Layout style={{ minHeight: "100vh", display: "flex" }}>

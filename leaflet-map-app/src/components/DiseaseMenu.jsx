@@ -7,13 +7,9 @@ const DiseaseMenu = ({ handleDiseaseChange }) => {
             style={{ marginTop: "10px", width: "100%", fontSize: "1.2em" }}
           >
             <option value="">Select a Disease</option>
-            <option value="Septoria Leaf Blotch">Septoria Leaf Blotch</option>
-            <option value="Powdery Mildew">Powdery Mildew</option>
-            <option value="Blackleg">Blackleg</option>
-            <option value="White Spot P.C.Spore">
-              White Leaf Spot P.C.Spore
-            </option>
-            <option value="Brown Rust">Brown Rust</option>
+            <option value="CornFusariumHeadBlight">Fusarium Head Blight</option>
+            <option value="CornGrayLeafSpot">Gray Leaf Spot</option>
+            <option value="TarSpot">Tar Spot</option>
           </select>
     )
 };
