@@ -38,17 +38,18 @@ function App() {
   return (
     <Layout>
       <Sider
+        width={300}
         collapsed={collapsed}
         collapsible
         trigger={null}
         className='sidebar'
       >
-        <Logo />
+        {/* <Logo /> */}
         <MenuList />
       </Sider>
       
       <Layout>
-        <Header style={{ padding: 0, color: "white" }}>
+        <Header style={{ padding: 0, color: "white", backgroundColor: "#114D0D" }}>
           <Button
             type='text'
             className='toggle'
