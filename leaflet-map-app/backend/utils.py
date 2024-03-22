@@ -26,3 +26,6 @@ def process_diseaseRisk_turf(val):
 
 def process_diseaseRisk_apple(val):
     return int(val)
+
+def process_diseaseRisk_corn(val):
+    return int(val) / 10
