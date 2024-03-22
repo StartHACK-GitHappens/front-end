@@ -11,6 +11,11 @@ const { Header, Sider } = Layout;
 function App() {
   const [profileData, setProfileData] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
+  const [activePage, setActivePage] = useState('crop-classification'); 
+  
+  const handleSidebarClick = e => {
+    setActivePage(e.key); 
+  };
 
   function getHumidityDailyAvg() {
     axios({
@@ -32,20 +37,23 @@ function App() {
       });
   }
 
+  
+
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh', display: 'flex' }}>
       <Sider
-        width={300}
+        width={275}
         collapsed={collapsed}
         collapsible
         trigger={null}
+        theme="light"
         className="sidebar"
       >
         {/* <Logo /> */}
-        <MenuList />
+        <MenuList handleSidebarClick={handleSidebarClick  } />
       </Sider>
 
-      <Layout>
+      <Layout style={{ width: '100%' }}>
         <Header style={{ padding: 0, color: "white", backgroundColor: "#114D0D" }}>
           <Button
             type="text"
@@ -61,7 +69,8 @@ function App() {
           />
           <span style={{ marginLeft: "20px", fontSize: "20px" }}>HARVEST</span>
         </Header>
-        <SimpleMap className="simple-map" />
+        {activePage === 'crop-classification' && <SimpleMap className="simple-map" centerLatitude="-28.4275752" centerLongitude="21.6859793" />}
+        {activePage === 'early-warning' && <SimpleMap className="simple-map" centerLatitude="47.47672096160886" centerLongitude="9.433863598100613" />}
       </Layout>
     </Layout>
   );

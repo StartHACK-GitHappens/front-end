@@ -13,20 +13,20 @@ const CropSelectionMenu = () => {
       style={{
         position: "absolute",
         top: "100px",
-        left: "250px",
+        left: "25px",
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.8)", // 80% transparent background
         padding: "10px",
         border: "1px solid #999",
         borderRadius: "5px",
-        width: "150px", // Set a specific width for the menu
+        width: "200px", // Set a specific width for the menu
       }}
     >
       <div style={{ width: "100%" }}>
         <select
           value={selectedCrop}
           onChange={handleCropChange}
-          style={{ width: "100%" }}
+          style={{ width: "100%", fontSize: "1.5em" }}
         >
           <option value="">Select a Crop</option>
           <option value="🌱|Cotton">🌱| Cotton</option>

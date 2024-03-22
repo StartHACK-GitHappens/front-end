@@ -24,7 +24,7 @@ const OverlayMenu = () => {
       style={{
         position: "absolute",
         top: "100px",
-        right: "30px",
+        right: "15px",
         zIndex: 1000,
         backgroundColor: "rgba(255, 255, 255, 0.8)", // 80% transparent background
         padding: "10px",
@@ -33,12 +33,12 @@ const OverlayMenu = () => {
         width: "250px", // Set a specific width for the entire menu
       }}
     >
-      <p style={{ margin: "0 0 10px" }}>Map Tools</p>
+      <p style={{ margin: "0 0 10px", fontSize: "1.5em" }}>Map Tools</p>
       <div style={dropdownContainerStyle}>
         <select
           value={selectedOption}
           onChange={handleOptionChange}
-          style={{ width: "100%" }}
+          style={{ width: "100%", fontSize: "1.5em" }}
         >
           <option value="">Select an Option</option>
           <option value="NDVI">NDVI</option>
