@@ -8,7 +8,7 @@ import MenuList from "./components/MenuList";
 const { Header, Sider } = Layout;
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [activePage, setActivePage] = useState('crop-classification'); 
   
   const handleSidebarClick = e => {
