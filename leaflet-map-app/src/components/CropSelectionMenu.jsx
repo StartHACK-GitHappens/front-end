@@ -1,13 +1,7 @@
 // CropSelectionMenu.js
 import React, { useState } from "react";
 
-const CropSelectionMenu = () => {
-  const [selectedCrop, setSelectedCrop] = useState("");
-
-  const handleCropChange = (event) => {
-    setSelectedCrop(event.target.value);
-  };
-
+const CropSelectionMenu = ({ handleCropChange }) => {
   return (
     <div
       style={{
@@ -24,7 +18,7 @@ const CropSelectionMenu = () => {
     >
       <div style={{ width: "100%" }}>
         <select
-          value={selectedCrop}
+          // value={selectedCrop}
           onChange={handleCropChange}
           style={{ width: "100%", fontSize: "1.5em" }}
         >

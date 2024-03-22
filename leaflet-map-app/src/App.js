@@ -37,8 +37,6 @@ function App() {
       });
   }
 
-  
-
   return (
     <Layout style={{ minHeight: '100vh', display: 'flex' }}>
       <Sider

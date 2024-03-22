@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -7,8 +7,8 @@ import {
   ImageOverlay,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import OverlayMenu from "./OverlayMenu"; // Import the OverlayMenu component
-import CropSelectionMenu from "./CropSelectionMenu"; // Import the CropSelectionMenu component
+import OverlayMenu from "./components/OverlayMenu"; // Import the OverlayMenu component
+import CropSelectionMenu from "./components/CropSelectionMenu"; // Import the CropSelectionMenu component
 import { Icon } from "leaflet";
 import { fieldsData } from "./fields";
 import "leaflet/dist/leaflet.css"
@@ -36,50 +36,20 @@ function createImageOverlay(centerLat, centerLng, imageSizeKm, imagePath) {
   return <ImageOverlay url={imagePath} bounds={imageBounds} />;
 }
 
-const SimpleMap = ({ centerLatitude, centerLongitude}) => {
+const SimpleMap = ({ centerLatitude, centerLongitude }) => {
   const mapRef = useRef(null);
-  
-  const customIcon = new Icon({
-    iconUrl: require("./img/marker-icon.png"),
-    iconSize: [38, 38]
-  });
 
-  const _created = (e) => {
-    let layer = e.layer;
-    let latLngs = layer.getLatLngs();
-    let coordinates = latLngs[0].map((latLng) => {
-      return [latLng.lat, latLng.lng];
-    });
-    console.log(coordinates); // This will log the coordinates in the console.
-    // Convert JavaScript object to JSON string.
-    const jsonString = JSON.stringify(coordinates);
-    
-    // An anchor element is used to allow the user to download the file.
-    const downloadLink = document.createElement('a');
-
-    // Create a Blob object represent a file-like object of immutable,
-    // raw data; they can be read as text or binary data
-    const blob = new Blob([jsonString], { type: 'text/plain' });
-    downloadLink.href = URL.createObjectURL(blob);
-    downloadLink.download = 'coordinates.txt';
-    
-    // This is necessary because the link isn't part of the DOM
-    document.body.appendChild(downloadLink);
-    
-    downloadLink.click();
-
-    // Remove the link from the body
-    document.body.removeChild(downloadLink);
-  }
+  // CropSelectionMenu
+  const [selectedCrop, setSelectedCrop] = useState("");
+  const handleCropChange = (e) => {
+    setSelectedCrop(e.target.value);
+  };
 
   // Central coordinates of the image
   const imageCenterLat = -28.4275752;
   const imageCenterLng = 21.6859793;
   // Size of the image in kilometers
   const imageSizeKm = 2.24;
-  // Path to the image
-  const imagePath = "/truth.png";
-
   return (
       <MapContainer
         center={[centerLatitude, centerLongitude]}
@@ -109,14 +79,15 @@ const SimpleMap = ({ centerLatitude, centerLongitude}) => {
           })
         }
         {/* Use the createImageOverlay function to add the custom image */}
-        {createImageOverlay(
+        {selectedCrop === "🌽|Maize" && createImageOverlay(
           imageCenterLat,
           imageCenterLng,
           imageSizeKm,
-          imagePath
+          "maize-removebg-preview.png"
         )}
         <OverlayMenu />
-        <CropSelectionMenu />
+        
+        <CropSelectionMenu handleCropChange={handleCropChange} />
       </MapContainer>
   );
 };

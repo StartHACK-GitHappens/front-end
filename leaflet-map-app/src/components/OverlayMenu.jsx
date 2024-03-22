@@ -4,15 +4,15 @@ const OverlayMenu = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedDisease, setSelectedDisease] = useState("");
 
-  const handleOptionChange = (event) => {
-    const selected = event.target.value;
+  const handleOptionChange = (e) => {
+    const selected = e.target.value;
     setSelectedOption(selected);
     // Reset the disease selection when the main option changes
     setSelectedDisease("");
   };
 
-  const handleDiseaseChange = (event) => {
-    setSelectedDisease(event.target.value);
+  const handleDiseaseChange = (e) => {
+    setSelectedDisease(e.target.value);
   };
 
   // Determine if the color bar should be displayed
@@ -36,7 +36,7 @@ const OverlayMenu = () => {
       <p style={{ margin: "0 0 10px", fontSize: "1.5em" }}>Map Tools</p>
       <div style={dropdownContainerStyle}>
         <select
-          value={selectedOption}
+          // value={selectedOption}
           onChange={handleOptionChange}
           style={{ width: "100%", fontSize: "1.5em" }}
         >
